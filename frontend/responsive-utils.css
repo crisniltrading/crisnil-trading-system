@@ -1,0 +1,429 @@
+/* ================================================
+   RESPONSIVE UTILITIES & HELPER CLASSES
+   ================================================ */
+
+/* Responsive Table Container */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+}
+
+.table-responsive table {
+    min-width: 600px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .table-responsive table {
+        font-size: 0.875rem;
+    }
+    
+    .table-responsive th,
+    .table-responsive td {
+        padding: 0.5rem;
+    }
+}
+
+/* Responsive Image */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive Video/Iframe */
+.responsive-embed {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.responsive-embed iframe,
+.responsive-embed video,
+.responsive-embed embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Hide/Show at Breakpoints */
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .show-mobile {
+        display: none !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .hide-tablet {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1025px) {
+    .show-tablet {
+        display: none !important;
+    }
+}
+
+/* Responsive Typography */
+.responsive-text {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+}
+
+.responsive-heading {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+/* Flexbox Utilities */
+.flex-mobile-column {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .flex-mobile-column {
+        flex-direction: column;
+    }
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+@media (max-width: 768px) {
+    .flex-wrap-mobile {
+        flex-wrap: wrap;
+    }
+}
+
+/* Grid Utilities */
+.grid-responsive {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 1200px) {
+    .grid-responsive {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .grid-responsive {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Spacing Utilities */
+@media (max-width: 768px) {
+    .p-mobile-small {
+        padding: 0.5rem !important;
+    }
+    
+    .m-mobile-small {
+        margin: 0.5rem !important;
+    }
+    
+    .gap-mobile-small {
+        gap: 0.5rem !important;
+    }
+}
+
+/* Width Utilities */
+@media (max-width: 768px) {
+    .w-mobile-full {
+        width: 100% !important;
+    }
+}
+
+/* Text Alignment */
+@media (max-width: 768px) {
+    .text-mobile-center {
+        text-align: center !important;
+    }
+    
+    .text-mobile-left {
+        text-align: left !important;
+    }
+}
+
+/* Overflow Handling */
+.overflow-x-auto {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.overflow-y-auto {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Login/Modal Responsive */
+@media (max-width: 768px) {
+    .login-screen-modern .login-container-modern {
+        flex-direction: column;
+    }
+    
+    .login-card-modern {
+        max-width: 95%;
+        margin: 1rem auto;
+    }
+    
+    .login-side-panel {
+        display: none;
+    }
+}
+
+/* Responsive Search & Filter Controls */
+@media (max-width: 768px) {
+    .filter-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .filter-controls > * {
+        width: 100%;
+    }
+    
+    .sort-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .sort-controls > * {
+        width: 100%;
+    }
+}
+
+/* Card Layouts Responsive */
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Stats Cards Responsive */
+@media (max-width: 640px) {
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-value {
+        font-size: 1.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.875rem;
+    }
+}
+
+/* Modal Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95vw !important;
+        max-width: 95vw !important;
+        margin: 1rem auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .modal-header,
+    .modal-body {
+        padding: 1rem;
+    }
+}
+
+/* Button Groups Responsive */
+@media (max-width: 768px) {
+    .btn-group {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn-group .btn {
+        width: 100%;
+        border-radius: 0.5rem !important;
+        margin-bottom: 0.5rem;
+    }
+}
+
+/* Dashboard Header Responsive */
+@media (max-width: 768px) {
+    .dashboard-header {
+        position: static;
+    }
+    
+    .brand-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .brand-icon {
+        margin: 0 auto 0.5rem;
+    }
+}
+
+/* Navigation Tabs Responsive */
+@media (max-width: 768px) {
+    .tabs-container {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    
+    .nav-tab {
+        flex-shrink: 0;
+        min-width: auto;
+        padding: 0.75rem 1rem;
+    }
+}
+
+/* Form Responsive */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-input,
+    .form-select,
+    .form-textarea {
+        font-size: 16px; /* Prevent iOS zoom */
+    }
+}
+
+/* Product Grid Responsive Enhancements */
+@media (max-width: 640px) {
+    .product-card {
+        max-width: 100%;
+    }
+    
+    .product-image {
+        height: 180px;
+    }
+    
+    .product-info {
+        padding: 1rem;
+    }
+    
+    .product-name {
+        font-size: 1rem;
+    }
+    
+    .product-price {
+        font-size: 1.25rem;
+    }
+}
+
+/* Checkout Responsive */
+@media (max-width: 768px) {
+    #checkoutSection > div,
+    #cartSection > div {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .cart-summary {
+        position: static !important;
+    }
+}
+
+/* Order Cards Responsive */
+@media (max-width: 768px) {
+    .order-card {
+        padding: 1rem;
+    }
+    
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .order-items {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Profile Settings Responsive */
+@media (max-width: 768px) {
+    .profile-settings-container {
+        height: 100vh;
+    }
+    
+    .profile-settings-content {
+        flex-direction: column;
+    }
+    
+    .profile-sidebar {
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    
+    .profile-main-content {
+        padding: 1rem;
+    }
+}
+
+/* Touch Target Sizing */
+@media (max-width: 768px) {
+    .btn,
+    .nav-tab,
+    .icon-btn,
+    .interactive {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Prevent Horizontal Overflow */
+* {
+    max-width: 100%;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* Smooth Scrolling for Touch Devices */
+@media (hover: none) {
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Dark Mode Adjustments */
+@media (prefers-color-scheme: dark) {
+    .table-responsive {
+        background: var(--surface);
+    }
+}
