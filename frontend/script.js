@@ -4,7 +4,7 @@ let isDarkMode = localStorage.getItem('darkMode') === 'true';
 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 
 // API base URL - will be configured based on environment
-const API_BASE_URL = 'http://localhost:5001/api';
+const API_BASE_URL = 'https://crisnil-trading-system.vercel.app/api';
 window.API_BASE_URL = API_BASE_URL; // Make it globally accessible
 
 // Initialize app
