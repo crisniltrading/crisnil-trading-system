@@ -1,0 +1,58 @@
+<!-- Expiry Tracker Section -->
+<!-- Add this section to your index.html after the Inventory Section -->
+
+<div class="content-section" id="expiryTrackerSection" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <h2 style="margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fas fa-calendar-times"></i>
+            Expiry Tracker
+        </h2>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary" onclick="loadExpiryDashboard()">
+                <i class="fas fa-sync"></i> Refresh
+            </button>
+        </div>
+    </div>
+
+    <!-- Expiry Dashboard Container -->
+    <div id="expiryDashboardContainer">
+        <div style="text-align: center; padding: 3rem;">
+            <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary-color);"></i>
+            <p style="margin-top: 1rem; color: var(--text-muted);">Loading expiry data...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Add navigation item to sidebar -->
+<!-- Add this to your navigation menu -->
+<script>
+// Add this to your navigation setup
+function addExpiryTrackerNav() {
+    const navMenu = document.querySelector('.nav-menu');
+    if (navMenu) {
+        const expiryNavItem = document.createElement('a');
+        expiryNavItem.href = '#';
+        expiryNavItem.className = 'nav-item';
+        expiryNavItem.id = 'nav-expiry-tracker';
+        expiryNavItem.innerHTML = '<i class="fas fa-calendar-times"></i><span>Expiry Tracker</span>';
+        expiryNavItem.onclick = function(e) {
+            e.preventDefault();
+            showSection('expiryTrackerSection');
+            loadExpiryDashboard();
+        };
+        
+        // Insert after inventory nav item
+        const inventoryNav = document.getElementById('nav-inventory');
+        if (inventoryNav && inventoryNav.parentNode) {
+            inventoryNav.parentNode.insertBefore(expiryNavItem, inventoryNav.nextSibling);
+        }
+    }
+}
+
+// Call this after DOM is loaded
+document.addEventListener('DOMContentLoaded', addExpiryTrackerNav);
+</script>
+
+<!-- Include the expiry tracker scripts and styles -->
+<link rel="stylesheet" href="expiry-tracker.css">
+<script src="expiry-tracker.js"></script>

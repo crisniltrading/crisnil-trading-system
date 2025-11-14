@@ -1,0 +1,762 @@
+/* Loyalty Rewards Styles */
+
+.loyalty-modal {
+    max-width: 900px !important;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.loyalty-header {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.points-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.points-circle {
+    width: 180px;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.points-value {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.points-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.points-info {
+    font-size: 1rem;
+    opacity: 0.95;
+    margin: 0;
+}
+
+.rewards-section {
+    margin-bottom: 2rem;
+}
+
+.rewards-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rewards-section h3::before {
+    content: '🎁';
+    font-size: 1.8rem;
+}
+
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.reward-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.reward-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.reward-card.can-claim {
+    border-color: #667eea;
+    cursor: pointer;
+}
+
+.reward-card.can-claim::before {
+    opacity: 1;
+}
+
+.reward-card.can-claim:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
+}
+
+.reward-card.locked {
+    opacity: 0.6;
+    background: #f7fafc;
+}
+
+.reward-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.8rem;
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.reward-card.locked .reward-icon {
+    background: #cbd5e0;
+    box-shadow: none;
+}
+
+.reward-card h4 {
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem 0;
+    color: #2d3748;
+    text-align: center;
+}
+
+.reward-description {
+    font-size: 0.9rem;
+    color: #718096;
+    text-align: center;
+    margin-bottom: 1rem;
+    min-height: 40px;
+}
+
+.reward-points {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.points-required {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+}
+
+.points-needed {
+    font-size: 0.85rem;
+    color: #e53e3e;
+    background: rgba(229, 62, 62, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+}
+
+.reward-limit {
+    font-size: 0.8rem;
+    color: #718096;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.reward-card .btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.reward-card .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.reward-card .btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.reward-card .btn-disabled {
+    background: #cbd5e0;
+    color: #a0aec0;
+    cursor: not-allowed;
+}
+
+/* My Rewards Section */
+.my-rewards-section {
+    margin-top: 3rem;
+}
+
+.my-rewards-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.my-rewards-section h3::before {
+    content: '🎫';
+    font-size: 1.8rem;
+}
+
+.claims-group {
+    margin-bottom: 2rem;
+}
+
+.claims-group h4 {
+    font-size: 1.2rem;
+    color: #4a5568;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.claims-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.claim-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.claim-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.claim-card.used {
+    border-left-color: #48bb78;
+    opacity: 0.8;
+}
+
+.claim-card.expired {
+    border-left-color: #cbd5e0;
+    opacity: 0.6;
+}
+
+.claim-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.claim-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #2d3748;
+}
+
+.claim-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.status-used {
+    background: #bee3f8;
+    color: #2c5282;
+}
+
+.status-expired {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+.claim-description {
+    color: #718096;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.claim-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.claim-code {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #f7fafc;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.btn-copy {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: auto;
+}
+
+.btn-copy:hover {
+    background: #5568d3;
+    transform: scale(1.1);
+}
+
+.claim-expiry,
+.claim-used,
+.claim-expired {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.claim-expiry {
+    color: #718096;
+}
+
+.claim-expiry.expiring-soon {
+    color: #e53e3e;
+    font-weight: 600;
+}
+
+.claim-used {
+    color: #48bb78;
+}
+
+.claim-expired {
+    color: #a0aec0;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #a0aec0;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.loading-text,
+.error-text {
+    text-align: center;
+    padding: 2rem;
+    color: #718096;
+    font-size: 1rem;
+}
+
+.error-text {
+    color: #e53e3e;
+}
+
+/* Admin Loyalty Dashboard */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d3748;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: #718096;
+    margin-top: 0.25rem;
+}
+
+.loyalty-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.section h3 {
+    font-size: 1.3rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.top-users-list,
+.reward-stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.top-user-item,
+.reward-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f7fafc;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.top-user-item:hover,
+.reward-stat-item:hover {
+    background: #edf2f7;
+}
+
+.rank {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #667eea;
+    min-width: 40px;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-info strong {
+    display: block;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
+}
+
+.user-info small {
+    color: #718096;
+    font-size: 0.85rem;
+}
+
+.user-points {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+}
+
+.reward-name {
+    flex: 1;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.reward-metrics {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: #718096;
+}
+
+.actions-section {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1.5rem;
+    background: #f7fafc;
+    border-radius: 12px;
+}
+
+.actions-section .btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.actions-section .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .loyalty-modal {
+        max-width: 95vw;
+    }
+
+    .rewards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .loyalty-sections {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-overview {
+        grid-template-columns: 1fr;
+    }
+
+    .points-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .points-value {
+        font-size: 2.5rem;
+    }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.reward-card,
+.claim-card,
+.stat-card {
+    animation: fadeInUp 0.4s ease;
+}
+
+.reward-card:nth-child(1) { animation-delay: 0.1s; }
+.reward-card:nth-child(2) { animation-delay: 0.2s; }
+.reward-card:nth-child(3) { animation-delay: 0.3s; }
+.reward-card:nth-child(4) { animation-delay: 0.4s; }
+.reward-card:nth-child(5) { animation-delay: 0.5s; }
+
+/* Admin Tables */
+.claims-table,
+.rewards-table {
+    overflow-x: auto;
+}
+
+.claims-table table,
+.rewards-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.claims-table th,
+.rewards-table th {
+    background: #f7fafc;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #2d3748;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.claims-table td,
+.rewards-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #4a5568;
+}
+
+.claims-table tr:hover,
+.rewards-table tr:hover {
+    background: #f7fafc;
+}
+
+/* Badge Styles */
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.badge-active {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.badge-used {
+    background: #bee3f8;
+    color: #2c5282;
+}
+
+.badge-expired {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+.badge-success {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.badge-danger {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+/* Claims Filters */
+.claims-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group small {
+    display: block;
+    margin-top: 0.25rem;
+    color: #718096;
+    font-size: 0.85rem;
+}
+
+/* Large Modal */
+.large-modal {
+    max-width: 1000px !important;
+}
+
+/* Button Sizes */
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}

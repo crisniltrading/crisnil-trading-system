@@ -1,0 +1,1524 @@
+/* ============================================
+   SHOPEE-STYLE ADVERTISEMENT POPUP - REDESIGNED
+   ============================================ */
+
+/* Popup Overlay - Right Side Center, No Dark Background */
+.ad-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+.ad-popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Popup Container - Two Sections Side by Side */
+.ad-popup-container {
+    position: relative;
+    max-width: 600px;
+    width: 600px;
+    max-height: 450px;
+    margin: 1rem;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: auto;
+    display: flex;
+    gap: 0;
+}
+
+@keyframes popupSlideIn {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.ad-popup-overlay.active .ad-popup-container {
+    transform: translateX(0);
+    opacity: 1;
+    animation: popupSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.ad-popup-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ad-popup-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ad-popup-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.ad-popup-container::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.ad-popup-overlay.active .ad-popup-container {
+    transform: scale(1);
+}
+
+/* Close Button - Smaller */
+.ad-popup-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #475569;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes closeButtonPulse {
+    0%, 100% {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    50% {
+        box-shadow: 0 4px 20px rgba(196, 30, 58, 0.3);
+    }
+}
+
+.ad-popup-close:hover {
+    background: #C41E3A;
+    color: white;
+    transform: rotate(90deg) scale(1.1);
+    box-shadow: 0 6px 20px rgba(196, 30, 58, 0.4);
+    border-color: #C41E3A;
+}
+
+/* Popup Content - Two Sections */
+.ad-popup-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+}
+
+/* Section Wrapper */
+.ad-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #e2e8f0;
+    position: relative;
+}
+
+.ad-section:last-child {
+    border-right: none;
+}
+
+/* Section Header */
+.ad-section-header {
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #C41E3A 0%, #ee5a6f 100%);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.ad-section-header.promotions {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.ad-section-header i {
+    font-size: 16px;
+}
+
+/* Promotions List Section */
+.promotions-section .ad-popup-info {
+    padding: 0;
+    overflow-y: auto;
+    max-height: 380px;
+}
+
+.promotions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.promotion-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    background: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.promotion-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
+}
+
+.promotion-item:hover {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+    padding-left: 20px;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.promotion-item:hover::before {
+    transform: scaleY(1);
+}
+
+.promotion-item:last-child {
+    border-bottom: none;
+}
+
+.promotion-item:active {
+    transform: scale(0.98);
+}
+
+.promotion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.promotion-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.promotion-name i {
+    color: #667eea;
+    font-size: 14px;
+}
+
+.promotion-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.promotion-description {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.promotion-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.promotion-discount {
+    font-size: 16px;
+    font-weight: 800;
+    color: #667eea;
+}
+
+.promotion-timer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: #f59e0b;
+    background: #fef3c7;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.promotion-timer i {
+    font-size: 10px;
+}
+
+/* Image Container - Compact */
+.ad-popup-image {
+    width: 100%;
+    height: 120px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 50%, #C41E3A 100%);
+    flex-shrink: 0;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.ad-popup-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.ad-popup-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8fafc;
+    animation: imageZoomIn 0.8s ease-out;
+}
+
+@keyframes imageZoomIn {
+    from {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.ad-popup-image img:hover {
+    transform: scale(1.08);
+}
+
+/* Loading state for images */
+.ad-popup-image img[src*="data:image/svg"] {
+    object-fit: contain;
+    padding: 50px;
+    animation: placeholderPulse 2s ease-in-out infinite;
+}
+
+@keyframes placeholderPulse {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Promo Badge - Compact */
+.ad-promo-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 9px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.ad-promo-badge i {
+    animation: fireFlicker 1.5s ease-in-out infinite;
+}
+
+@keyframes badgeBounce {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-5px) scale(1.05);
+    }
+}
+
+@keyframes fireFlicker {
+    0%, 100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    50% {
+        transform: scale(1.2);
+        filter: brightness(1.3);
+    }
+}
+
+/* Info Section - Very Compact */
+.ad-popup-info {
+    padding: 12px;
+    background: white;
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.ad-popup-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 24px;
+    right: 24px;
+    height: 3px;
+    background: linear-gradient(90deg, #C41E3A 0%, #ff6b6b 50%, #C41E3A 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.ad-popup-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@keyframes titleSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ad-popup-description {
+    font-size: 11px;
+    color: #64748b;
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+    max-height: 32px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+/* Price Section - Compact */
+.ad-popup-price-section {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.ad-popup-price {
+    font-size: 20px;
+    font-weight: 800;
+    color: #C41E3A;
+}
+
+@keyframes pricePopIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.ad-popup-original-price {
+    font-size: 13px;
+    color: #94a3b8;
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+.ad-popup-discount {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    color: #92400e;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+@keyframes discountWiggle {
+    0%, 100% {
+        transform: rotate(-2deg);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+/* Action Buttons - Compact */
+.ad-popup-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.ad-popup-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.ad-popup-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.ad-popup-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.ad-popup-btn-primary {
+    background: linear-gradient(135deg, #C41E3A 0%, #ee5a6f 100%);
+    color: white;
+    box-shadow: 
+        0 4px 15px rgba(196, 30, 58, 0.4),
+        0 0 0 0 rgba(196, 30, 58, 0.5);
+    animation: buttonPulse 2s ease-in-out infinite;
+}
+
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 
+            0 4px 15px rgba(196, 30, 58, 0.4),
+            0 0 0 0 rgba(196, 30, 58, 0.5);
+    }
+    50% {
+        box-shadow: 
+            0 6px 20px rgba(196, 30, 58, 0.5),
+            0 0 0 8px rgba(196, 30, 58, 0);
+    }
+}
+
+.ad-popup-btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(196, 30, 58, 0.5);
+}
+
+.ad-popup-btn-primary:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+.ad-popup-btn-secondary {
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    color: #475569;
+    border: 2px solid #e2e8f0;
+}
+
+.ad-popup-btn-secondary:hover {
+    background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Timer - Compact */
+.ad-popup-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 8px;
+    padding: 6px 10px;
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border-radius: 8px;
+    font-size: 10px;
+    color: #92400e;
+    font-weight: 600;
+    border: 1px dashed #fbbf24;
+}
+
+.ad-popup-timer i {
+    color: #f59e0b;
+    animation: clockTick 1s ease-in-out infinite;
+}
+
+@keyframes clockTick {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+/* Don't Show Again - Compact */
+.ad-popup-footer {
+    padding: 8px 12px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ad-popup-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 10px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.ad-popup-checkbox:hover {
+    color: #475569;
+}
+
+.ad-popup-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #C41E3A;
+    transition: transform 0.2s ease;
+}
+
+.ad-popup-checkbox input[type="checkbox"]:hover {
+    transform: scale(1.1);
+}
+
+/* Persistent popup - stays visible during navigation */
+.ad-popup-overlay.persistent {
+    pointer-events: auto;
+}
+
+.ad-popup-overlay.persistent .ad-popup-container {
+    pointer-events: auto;
+}
+
+/* Empty State */
+.ad-section-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+.ad-section-empty i {
+    font-size: 48px;
+    margin-bottom: 12px;
+    opacity: 0.3;
+}
+
+.ad-section-empty p {
+    font-size: 13px;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Scrollbar for promotions list */
+.promotions-section .ad-popup-info::-webkit-scrollbar {
+    width: 6px;
+}
+
+.promotions-section .ad-popup-info::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.promotions-section .ad-popup-info::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.promotions-section .ad-popup-info::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .ad-popup-container {
+        width: 95%;
+        max-width: 95%;
+        max-height: 80vh;
+        flex-direction: column;
+    }
+
+    .ad-section {
+        border-right: none;
+        border-bottom: 2px solid #e2e8f0;
+    }
+
+    .ad-section:last-child {
+        border-bottom: none;
+    }
+
+    .ad-popup-image {
+        height: 180px;
+    }
+
+    .ad-popup-info {
+        padding: 16px;
+    }
+
+    .ad-popup-title {
+        font-size: 16px;
+    }
+
+    .ad-popup-description {
+        font-size: 12px;
+        margin-bottom: 12px;
+    }
+
+    .ad-popup-price {
+        font-size: 20px;
+    }
+
+    .ad-popup-original-price {
+        font-size: 14px;
+    }
+
+    .ad-popup-actions {
+        flex-direction: column;
+    }
+
+    .ad-popup-btn {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 12px;
+    }
+
+    .ad-popup-footer {
+        padding: 12px 16px;
+    }
+
+    .ad-popup-checkbox {
+        font-size: 13px;
+    }
+}
+
+/* Loading Animation */
+.ad-popup-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+}
+
+.ad-popup-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f4f6;
+    border-top-color: #C41E3A;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Sparkle Effects */
+.ad-popup-sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    animation: sparkleFloat 3s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes sparkleFloat {
+    0%, 100% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: translateY(-30px) scale(1);
+        opacity: 1;
+    }
+}
+
+.sparkle:nth-child(1) { left: 20%; animation-delay: 0s; }
+.sparkle:nth-child(2) { left: 40%; animation-delay: 0.5s; }
+.sparkle:nth-child(3) { left: 60%; animation-delay: 1s; }
+.sparkle:nth-child(4) { left: 80%; animation-delay: 1.5s; }
+.sparkle:nth-child(5) { left: 30%; animation-delay: 2s; }
+.sparkle:nth-child(6) { left: 70%; animation-delay: 2.5s; }
+
+/* Shine Effect on Image */
+.ad-popup-image::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 70%
+    );
+    animation: shine 3s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+/* Floating Animation for Container */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.ad-popup-overlay.active .ad-popup-container {
+    animation: popupSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+               float 3s ease-in-out 1s infinite;
+}
+
+/* Glow Effect on Hover */
+.ad-popup-container:hover {
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 30px rgba(196, 30, 58, 0.3);
+}
+
+/* Improved Mobile Styles */
+@media (max-width: 768px) {
+    .ad-popup-image {
+        height: 220px;
+    }
+    
+    .ad-popup-container {
+        max-width: 95%;
+        border-radius: 16px;
+    }
+    
+    .ad-promo-badge {
+        top: 12px;
+        left: 12px;
+        padding: 8px 16px;
+        font-size: 11px;
+    }
+    
+    .ad-popup-close {
+        width: 36px;
+        height: 36px;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* Loading Shimmer Effect */
+@keyframes shimmerLoading {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.ad-popup-image.loading {
+    background: linear-gradient(
+        90deg,
+        #f0f0f0 0%,
+        #e0e0e0 50%,
+        #f0f0f0 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmerLoading 2s infinite;
+}
+
+
+/* Navigation Controls */
+.ad-popup-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 2px solid #e2e8f0;
+    animation: titleSlideIn 0.6s ease-out 0.9s both;
+}
+
+.ad-nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #e2e8f0;
+    background: white;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ad-nav-btn:hover {
+    background: #C41E3A;
+    color: white;
+    border-color: #C41E3A;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(196, 30, 58, 0.3);
+}
+
+.ad-nav-btn:active {
+    transform: scale(0.95);
+}
+
+.ad-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.ad-nav-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.ad-nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ad-nav-dot:hover {
+    background: #94a3b8;
+    transform: scale(1.2);
+}
+
+.ad-nav-dot.active {
+    width: 24px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #C41E3A, #ee5a6f);
+    box-shadow: 0 2px 8px rgba(196, 30, 58, 0.4);
+}
+
+/* Keyboard navigation hint */
+.ad-popup-container:focus-within .ad-nav-btn {
+    outline: 2px solid #C41E3A;
+    outline-offset: 2px;
+}
+
+/* Mobile navigation adjustments */
+@media (max-width: 768px) {
+    .ad-popup-navigation {
+        gap: 12px;
+        margin-top: 16px;
+        padding-top: 12px;
+    }
+    
+    .ad-nav-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+    }
+    
+    .ad-nav-dot {
+        width: 6px;
+        height: 6px;
+    }
+    
+    .ad-nav-dot.active {
+        width: 20px;
+    }
+}
+
+/* Swipe indicator for mobile */
+@media (max-width: 768px) {
+    .ad-popup-image::after {
+        content: '← Swipe →';
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 3;
+        animation: swipeHint 2s ease-in-out infinite;
+    }
+}
+
+@keyframes swipeHint {
+    0%, 100% {
+        opacity: 0.7;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* Z-Index Hierarchy Documentation
+   ================================
+   Base layers: 1-99
+   UI elements: 100-999
+   Dropdowns/Tooltips: 1000-1999
+   Modals: 2000-8999
+   System overlays: 9000-9999
+   Ad popup: 10000
+   Notifications: 10001+
+   
+   This ensures notifications always appear above ads
+*/
+
+
+/* ============================================
+   SUCCESS CONFIRMATION MODAL
+   ============================================ */
+
+.success-confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.success-confirmation-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.success-confirmation-container {
+    position: relative;
+    max-width: 500px;
+    width: 90%;
+    background: white;
+    border-radius: 24px;
+    padding: 48px 40px 40px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+.success-confirmation-overlay.active .success-confirmation-container {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Success Icon Animation */
+.success-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.success-checkmark {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+
+.checkmark {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 3;
+    stroke: #22c55e;
+    stroke-miterlimit: 10;
+    box-shadow: 
+        inset 0 0 0 #22c55e,
+        0 10px 30px rgba(34, 197, 94, 0.3);
+    animation: fillCheckmark 0.4s ease-in-out 0.4s forwards, scaleCheckmark 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+    stroke: #22c55e;
+    fill: none;
+    animation: strokeCheckmark 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: strokeCheckmark 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes strokeCheckmark {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes scaleCheckmark {
+    0%, 100% {
+        transform: none;
+    }
+    50% {
+        transform: scale3d(1.1, 1.1, 1);
+    }
+}
+
+@keyframes fillCheckmark {
+    100% {
+        box-shadow: 
+            inset 0 0 0 50px #22c55e,
+            0 10px 30px rgba(34, 197, 94, 0.3);
+    }
+}
+
+/* Content Styling */
+.success-content {
+    text-align: center;
+}
+
+.success-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1e293b;
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+    animation: slideInUp 0.6s ease-out 0.3s both;
+}
+
+.success-welcome {
+    font-size: 18px;
+    color: #475569;
+    margin: 0 0 12px 0;
+    animation: slideInUp 0.6s ease-out 0.4s both;
+}
+
+.success-welcome strong {
+    color: #C41E3A;
+    font-weight: 700;
+}
+
+.success-message {
+    font-size: 15px;
+    color: #64748b;
+    margin: 0 0 32px 0;
+    line-height: 1.6;
+    animation: slideInUp 0.6s ease-out 0.5s both;
+}
+
+/* Account Details */
+.success-details {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 2px solid #e2e8f0;
+    animation: slideInUp 0.6s ease-out 0.6s both;
+}
+
+.success-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.success-detail-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.success-detail-item:first-child {
+    padding-top: 0;
+}
+
+.detail-icon {
+    width: 48px;
+    height: 48px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+}
+
+.detail-content {
+    flex: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #94a3b8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    font-size: 15px;
+    color: #1e293b;
+    font-weight: 600;
+}
+
+/* Email Notice */
+.success-email-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border-radius: 12px;
+    font-size: 13px;
+    color: #1e40af;
+    font-weight: 600;
+    margin-bottom: 24px;
+    animation: slideInUp 0.6s ease-out 0.7s both;
+}
+
+.success-email-notice i {
+    color: #3b82f6;
+    font-size: 16px;
+}
+
+/* Continue Button */
+.success-continue-btn {
+    width: 100%;
+    padding: 16px 32px;
+    background: linear-gradient(135deg, #C41E3A 0%, #ee5a6f 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 10px 25px rgba(196, 30, 58, 0.4),
+        0 0 0 0 rgba(196, 30, 58, 0.5);
+    animation: slideInUp 0.6s ease-out 0.8s both, buttonPulseSuccess 2s ease-in-out 1.5s infinite;
+}
+
+@keyframes buttonPulseSuccess {
+    0%, 100% {
+        box-shadow: 
+            0 10px 25px rgba(196, 30, 58, 0.4),
+            0 0 0 0 rgba(196, 30, 58, 0.5);
+    }
+    50% {
+        box-shadow: 
+            0 12px 30px rgba(196, 30, 58, 0.5),
+            0 0 0 10px rgba(196, 30, 58, 0);
+    }
+}
+
+.success-continue-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(196, 30, 58, 0.5);
+}
+
+.success-continue-btn:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Confetti Animation */
+.success-confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff);
+    top: -10%;
+    left: var(--x);
+    opacity: 0;
+    animation: confettiFall 3s ease-out var(--delay) forwards;
+    transform: rotate(var(--rotation));
+}
+
+.confetti-piece:nth-child(2n) {
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #feca57, #ff6b6b);
+}
+
+.confetti-piece:nth-child(3n) {
+    width: 6px;
+    height: 12px;
+    background: linear-gradient(135deg, #48dbfb, #0abde3);
+}
+
+.confetti-piece:nth-child(4n) {
+    width: 12px;
+    height: 6px;
+    background: linear-gradient(135deg, #ff9ff3, #ee5a6f);
+}
+
+@keyframes confettiFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--rotation));
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(600px) rotate(calc(var(--rotation) + 360deg));
+    }
+}
+
+/* Slide In Up Animation */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .success-confirmation-container {
+        padding: 40px 24px 32px;
+        border-radius: 20px;
+    }
+
+    .success-checkmark {
+        width: 80px;
+        height: 80px;
+    }
+
+    .checkmark {
+        width: 80px;
+        height: 80px;
+    }
+
+    .success-title {
+        font-size: 24px;
+    }
+
+    .success-welcome {
+        font-size: 16px;
+    }
+
+    .success-message {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .success-details {
+        padding: 20px;
+    }
+
+    .detail-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .detail-value {
+        font-size: 14px;
+    }
+
+    .success-continue-btn {
+        padding: 14px 28px;
+        font-size: 15px;
+    }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .success-confirmation-container,
+    .checkmark,
+    .checkmark-circle,
+    .checkmark-check,
+    .success-title,
+    .success-welcome,
+    .success-message,
+    .success-details,
+    .success-email-notice,
+    .success-continue-btn,
+    .confetti-piece {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .success-confirmation-overlay.active .success-confirmation-container {
+        transform: none;
+        opacity: 1;
+    }
+}

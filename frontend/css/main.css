@@ -1,0 +1,9 @@
+/* Main styles - import all CSS modules here */
+@import './landing.css';
+@import './features.css';
+@import './client-shopping.css';
+@import './product-management.css';
+@import './expiry-tracker.css';
+@import './notification-panel.css';
+@import './order-status-modal.css';
+@import './responsive-utils.css';

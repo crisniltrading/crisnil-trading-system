@@ -1,0 +1,547 @@
+/* ============================================
+   DASHBOARD REDESIGN - CRISNIL BRAND COLORS
+   White & Red Theme to Match Landing Page
+   Conservative approach - only style key elements
+   ============================================ */
+
+/* Dashboard Background */
+.dashboard {
+    background: #f8fafc;
+}
+
+/* Dashboard Header - Red Theme */
+.dashboard-header {
+    background: linear-gradient(135deg, #C41E3A 0%, #8B1528 100%);
+    border-bottom: none;
+    box-shadow: 0 4px 6px -1px rgba(196, 30, 58, 0.2);
+}
+
+.dashboard-header .brand-title,
+.dashboard-header .brand-subtitle,
+.dashboard-header .username {
+    color: white;
+}
+
+.dashboard-header .brand-icon {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-header .icon-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.dashboard-header .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: white;
+}
+
+.dashboard-header .user-profile {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dashboard-header .user-profile:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.dashboard-header .user-avatar {
+    background: white;
+    color: #C41E3A;
+}
+
+/* Navigation Tabs - White Background */
+.nav-tabs {
+    background: white !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.nav-tab {
+    color: #64748b !important;
+}
+
+.nav-tab:hover {
+    color: #C41E3A !important;
+    background: rgba(196, 30, 58, 0.05) !important;
+}
+
+.nav-tab.active {
+    color: #C41E3A !important;
+    border-bottom-color: #C41E3A !important;
+    background: rgba(196, 30, 58, 0.08) !important;
+}
+
+/* Stats Cards - Red Gradient */
+.stats-grid .stat-card {
+    background: linear-gradient(135deg, #C41E3A 0%, #8B1528 100%) !important;
+    border: none !important;
+    box-shadow: 0 4px 6px -1px rgba(196, 30, 58, 0.2) !important;
+}
+
+.stats-grid .stat-card:hover {
+    transform: translateY(-4px) scale(1.02) !important;
+    box-shadow: 0 20px 25px -5px rgba(196, 30, 58, 0.3) !important;
+}
+
+/* Cards - White with Red Accents */
+.card {
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.card:hover {
+    border-color: rgba(196, 30, 58, 0.3) !important;
+    box-shadow: 0 4px 6px -1px rgba(196, 30, 58, 0.1) !important;
+}
+
+/* Buttons - Red Theme */
+.btn-primary,
+button.btn-primary,
+a.btn-primary,
+input[type="submit"].btn-primary {
+    background: linear-gradient(135deg, #C41E3A 0%, #8B1528 100%) !important;
+    border: none !important;
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.btn-primary:hover,
+button.btn-primary:hover,
+a.btn-primary:hover {
+    background: linear-gradient(135deg, #8B1528 0%, #C41E3A 100%) !important;
+    box-shadow: 0 4px 6px -1px rgba(196, 30, 58, 0.3) !important;
+    color: white !important;
+}
+
+.btn-primary i,
+.btn-primary span {
+    color: white !important;
+}
+
+.btn-secondary,
+button.btn-secondary,
+a.btn-secondary {
+    background: white !important;
+    border: 2px solid #C41E3A !important;
+    color: #C41E3A !important;
+}
+
+.btn-secondary:hover,
+button.btn-secondary:hover,
+a.btn-secondary:hover {
+    background: #C41E3A !important;
+    color: white !important;
+}
+
+.btn-secondary i,
+.btn-secondary span {
+    color: inherit !important;
+}
+
+/* Specific button fixes */
+button[onclick*="export"],
+button[onclick*="Export"],
+.export-btn,
+.refresh-btn,
+.action-btn {
+    color: white !important;
+}
+
+button[onclick*="export"] i,
+button[onclick*="Export"] i,
+.export-btn i,
+.refresh-btn i,
+.action-btn i {
+    color: white !important;
+}
+
+/* Product Cards - White with Red Hover */
+.product-card {
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.product-card:hover {
+    border-color: #C41E3A !important;
+    box-shadow: 0 10px 15px -3px rgba(196, 30, 58, 0.1) !important;
+}
+
+.product-card .product-price {
+    color: #C41E3A !important;
+    font-weight: 700 !important;
+}
+
+/* Order Cards */
+.order-card {
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.order-card:hover {
+    border-color: rgba(196, 30, 58, 0.3) !important;
+}
+
+/* Transaction Cards */
+.transaction-card {
+    background: white !important;
+    border-left: 4px solid #C41E3A !important;
+}
+
+/* Badges - Red Theme */
+.badge-primary {
+    background: #C41E3A !important;
+}
+
+.badge-success {
+    background: #10b981 !important;
+}
+
+.badge-warning {
+    background: #f59e0b !important;
+}
+
+.badge-danger {
+    background: #ef4444 !important;
+}
+
+/* Forms - Clean White */
+.form-input,
+.form-select {
+    background: white !important;
+    border: 2px solid #e5e7eb !important;
+}
+
+.form-input:focus,
+.form-select:focus {
+    border-color: #C41E3A !important;
+    box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1) !important;
+}
+
+/* Tables - Clean Design */
+.table {
+    background: white !important;
+}
+
+.table thead {
+    background: linear-gradient(135deg, #C41E3A 0%, #8B1528 100%) !important;
+    color: white !important;
+}
+
+.table thead th {
+    color: white !important;
+    border: none !important;
+}
+
+.table tbody tr:hover {
+    background: rgba(196, 30, 58, 0.05) !important;
+}
+
+/* Modals - White with Red Accents */
+.modal-content {
+    background: white !important;
+    border: none !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2) !important;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #C41E3A 0%, #8B1528 100%) !important;
+    color: white !important;
+    border-bottom: none !important;
+}
+
+.modal-header .modal-title {
+    color: white !important;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* Notifications - Red Theme */
+.notification-item {
+    background: white !important;
+    border-left: 4px solid #C41E3A !important;
+}
+
+.notification-item:hover {
+    background: rgba(196, 30, 58, 0.05) !important;
+}
+
+/* Shopping Cart - Red Theme */
+.cart-item {
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+}
+
+.cart-item:hover {
+    border-color: rgba(196, 30, 58, 0.3) !important;
+}
+
+.cart-total {
+    background: linear-gradient(135deg, #C41E3A 0%, #8B1528 100%) !important;
+    color: white !important;
+}
+
+/* Loyalty Points - Red Theme */
+.loyalty-card {
+    background: linear-gradient(135deg, #C41E3A 0%, #8B1528 100%) !important;
+    color: white !important;
+}
+
+.points-display {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Progress Bars - Red */
+.progress-bar {
+    background: #C41E3A !important;
+}
+
+/* Links - Red */
+a {
+    color: #C41E3A !important;
+}
+
+a:hover {
+    color: #8B1528 !important;
+}
+
+/* Scrollbar - Red Theme */
+::-webkit-scrollbar-thumb {
+    background: #C41E3A !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8B1528 !important;
+}
+
+/* Loading Spinner - Red */
+.spinner {
+    border-top-color: #C41E3A !important;
+}
+
+/* Toast Notifications */
+.toast {
+    background: white !important;
+    border-left: 4px solid #C41E3A !important;
+}
+
+/* Search Bar */
+.search-bar input {
+    background: white !important;
+    border: 2px solid #e5e7eb !important;
+}
+
+.search-bar input:focus {
+    border-color: #C41E3A !important;
+    box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1) !important;
+}
+
+/* Filters */
+.filter-controls select,
+.filter-controls input {
+    background: white !important;
+    border: 2px solid #e5e7eb !important;
+}
+
+.filter-controls select:focus,
+.filter-controls input:focus {
+    border-color: #C41E3A !important;
+}
+
+/* Pagination */
+.pagination .page-link {
+    color: #C41E3A !important;
+    border-color: #e5e7eb !important;
+}
+
+.pagination .page-link:hover {
+    background: rgba(196, 30, 58, 0.1) !important;
+    border-color: #C41E3A !important;
+}
+
+.pagination .page-item.active .page-link {
+    background: #C41E3A !important;
+    border-color: #C41E3A !important;
+}
+
+/* Dropdown Menus */
+.dropdown-menu {
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dropdown-item:hover {
+    background: rgba(196, 30, 58, 0.1) !important;
+    color: #C41E3A !important;
+}
+
+/* Status Indicators */
+.status-pending {
+    background: #fef3c7 !important;
+    color: #92400e !important;
+}
+
+.status-processing {
+    background: #dbeafe !important;
+    color: #1e40af !important;
+}
+
+.status-completed {
+    background: #d1fae5 !important;
+    color: #065f46 !important;
+}
+
+.status-cancelled {
+    background: #fee2e2 !important;
+    color: #991b1b !important;
+}
+
+/* Charts - Red Theme */
+.chart-container {
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+    border-radius: 1rem !important;
+    padding: 1.5rem !important;
+}
+
+/* Empty States */
+.empty-state {
+    color: #64748b !important;
+}
+
+.empty-state i {
+    color: #C41E3A !important;
+}
+
+/* Content Wrapper */
+.content-wrapper {
+    background: transparent !important;
+}
+
+/* Sidebar (if exists) */
+.sidebar {
+    background: white !important;
+    border-right: 1px solid #e5e7eb !important;
+}
+
+.sidebar-item {
+    color: #64748b !important;
+}
+
+.sidebar-item:hover {
+    background: rgba(196, 30, 58, 0.1) !important;
+    color: #C41E3A !important;
+}
+
+.sidebar-item.active {
+    background: rgba(196, 30, 58, 0.1) !important;
+    color: #C41E3A !important;
+    border-left: 4px solid #C41E3A !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 1rem !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Dark Mode Override (Optional) */
+.dark .dashboard {
+    background: #1a1a1a !important;
+}
+
+.dark .card,
+.dark .product-card,
+.dark .order-card {
+    background: #2d2d2d !important;
+    border-color: #404040 !important;
+}
+
+.dark .nav-tabs {
+    background: #2d2d2d !important;
+    border-bottom-color: #404040 !important;
+}
+
+/* Additional Button Fixes */
+.btn,
+button,
+[role="button"] {
+    font-weight: 600 !important;
+}
+
+.btn-primary *,
+.btn-primary i,
+.btn-primary span,
+.btn-primary svg {
+    color: white !important;
+    fill: white !important;
+}
+
+/* Ensure all button text is visible */
+button.btn-primary,
+a.btn-primary,
+.btn.btn-primary {
+    color: white !important;
+}
+
+button.btn-primary *,
+a.btn-primary *,
+.btn.btn-primary * {
+    color: white !important;
+}
+
+/* Fix for icon buttons */
+.icon-btn,
+.btn-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+}
+
+/* Fix for buttons with icons */
+.btn i {
+    margin-right: 0.5rem !important;
+}
+
+.btn:last-child i {
+    margin-right: 0 !important;
+}
+
+/* Ensure button text is never transparent */
+.btn,
+.btn * {
+    opacity: 1 !important;
+}
+
+/* Animation for smooth transitions */
+* {
+    transition: background-color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* Remove transition from animations that should be instant */
+.spinner,
+.loading,
+[class*="animate-"] {
+    transition: none !important;
+}
+
+/* Don't transition color on buttons to avoid flicker */
+.btn,
+.btn *,
+button,
+button * {
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+}

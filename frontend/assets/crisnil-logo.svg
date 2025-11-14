@@ -1,0 +1,44 @@
+<svg width="500" height="200" viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Top Red Arc -->
+    <path d="M 100 30 A 70 70 0 0 1 170 100" 
+          fill="none" 
+          stroke="#B91C2C" 
+          stroke-width="18" 
+          stroke-linecap="round"/>
+    
+    <!-- Top Black Arc -->
+    <path d="M 100 48 A 52 52 0 0 1 152 100" 
+          fill="none" 
+          stroke="#2C2C2C" 
+          stroke-width="10" 
+          stroke-linecap="round"/>
+    
+    <!-- Bottom Red Arc -->
+    <path d="M 170 100 A 70 70 0 0 1 100 170" 
+          fill="none" 
+          stroke="#B91C2C" 
+          stroke-width="18" 
+          stroke-linecap="round"/>
+    
+    <!-- Bottom Black Arc -->
+    <path d="M 152 100 A 52 52 0 0 1 100 152" 
+          fill="none" 
+          stroke="#2C2C2C" 
+          stroke-width="10" 
+          stroke-linecap="round"/>
+    
+    <!-- CRISNIL Text -->
+    <text x="220" y="95" 
+          font-family="Arial, sans-serif" 
+          font-size="48" 
+          font-weight="bold" 
+          fill="#B91C2C">CRISNIL</text>
+    
+    <!-- TRADING CORPORATION Text -->
+    <text x="220" y="125" 
+          font-family="Arial, sans-serif" 
+          font-size="16" 
+          font-weight="600" 
+          fill="#2C2C2C" 
+          letter-spacing="2">TRADING CORPORATION</text>
+</svg>
