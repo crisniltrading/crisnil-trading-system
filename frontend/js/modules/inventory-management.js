@@ -106,8 +106,8 @@ function renderInventoryDashboard(overview, products, alerts) {
                     ${lowStockItems.slice(0, 6).map(product => `
                         <div class="low-stock-card">
                             <div class="product-image-small">
-                                ${product.images && product.images.length > 0 ? `
-                                    <img src="${API_BASE_URL.replace('/api', '')}${product.images[0].url}" alt="${product.name}">
+                                ${product.images && product.images.length > 0 && product.images[0].data ? `
+                                    <img src="data:${product.images[0].contentType};base64,${product.images[0].data}" alt="${product.name}">
                                 ` : `
                                     <i class="fas fa-box"></i>
                                 `}
@@ -189,8 +189,8 @@ function renderInventoryRow(product) {
         <tr data-product-id="${product._id}" data-category="${product.category}" data-stock-status="${stockStatus}">
             <td>
                 <div class="product-cell">
-                    ${product.images && product.images.length > 0 ? `
-                        <img src="${API_BASE_URL.replace('/api', '')}${product.images[0].url}" alt="${product.name}" class="product-thumb">
+                    ${product.images && product.images.length > 0 && product.images[0].data ? `
+                        <img src="data:${product.images[0].contentType};base64,${product.images[0].data}" alt="${product.name}" class="product-thumb">
                     ` : `
                         <div class="product-thumb-placeholder"><i class="fas fa-box"></i></div>
                     `}
