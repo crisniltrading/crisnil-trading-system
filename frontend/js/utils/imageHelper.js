@@ -19,33 +19,48 @@
   function getImageUrl(imageInput, fallbackIcon = null) {
     if (!imageInput) return null;
     
-    // Handle object format (new schema: {data, contentType, filename, alt})
-    let imageUrl = imageInput;
+    // Handle object format (database schema: {data, contentType, filename, alt})
     if (typeof imageInput === 'object') {
-      // Try 'data' field first (new base64 format)
-      imageUrl = imageInput.data || imageInput.url || null;
+      // Base64 format (stored in database)
+      if (imageInput.data && imageInput.contentType) {
+        return `data:${imageInput.contentType};base64,${imageInput.data}`;
+      }
+      // URL format (if it exists)
+      if (imageInput.url) {
+        const imageUrl = imageInput.url;
+        if (imageUrl.startsWith('data:') || imageUrl.startsWith('http')) {
+          return imageUrl;
+        }
+        // Relative path
+        const path = imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl;
+        const baseUrl = window.API_BASE_URL 
+          ? window.API_BASE_URL.replace('/api', '')
+          : (window.location.protocol + '//' + window.location.hostname + 
+             (window.location.port ? ':' + window.location.port : ''));
+        return `${baseUrl}${path}`;
+      }
     }
     
-    if (!imageUrl) return null;
-    
-    // Base64 image (stored in database)
-    // Format: data:image/jpeg;base64,/9j/4AAQSkZJRg...
-    if (imageUrl.startsWith('data:')) {
-      return imageUrl;
+    // Handle string format
+    if (typeof imageInput === 'string') {
+      // Already a data URL
+      if (imageInput.startsWith('data:')) {
+        return imageInput;
+      }
+      // HTTP URL
+      if (imageInput.startsWith('http')) {
+        return imageInput;
+      }
+      // Relative path
+      const path = imageInput.startsWith('/') ? imageInput : '/' + imageInput;
+      const baseUrl = window.API_BASE_URL 
+        ? window.API_BASE_URL.replace('/api', '')
+        : (window.location.protocol + '//' + window.location.hostname + 
+           (window.location.port ? ':' + window.location.port : ''));
+      return `${baseUrl}${path}`;
     }
     
-    // File path (stored on disk)
-    // Format: /uploads/products/product-123456.jpg
-    // Ensure it starts with /
-    const path = imageUrl.startsWith('/') ? imageUrl : '/' + imageUrl;
-    
-    // Use global API_BASE_URL if available, otherwise construct from window.location
-    const baseUrl = window.API_BASE_URL 
-      ? window.API_BASE_URL.replace('/api', '')
-      : (window.location.protocol + '//' + window.location.hostname + 
-         (window.location.port ? ':' + window.location.port : ''));
-    
-    return `${baseUrl}${path}`;
+    return null;
   }
 
   /**
