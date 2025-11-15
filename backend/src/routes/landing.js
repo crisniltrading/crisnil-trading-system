@@ -21,6 +21,13 @@ router.get('/featured-products', async (req, res) => {
             let imageUrl = null;
             if (product.images && product.images.length > 0) {
                 const firstImage = product.images[0];
+                console.log(`Product ${product.name} image:`, {
+                    hasUrl: !!firstImage.url,
+                    hasData: !!firstImage.data,
+                    dataLength: firstImage.data?.length || 0,
+                    contentType: firstImage.contentType
+                });
+                
                 if (firstImage.url) {
                     // URL-based image
                     imageUrl = firstImage.url;
@@ -31,6 +38,8 @@ router.get('/featured-products', async (req, res) => {
                     // Base64 image - only use if data is substantial (not just "1" or empty)
                     imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
                 }
+            } else {
+                console.log(`Product ${product.name} has no images`);
             }
             
             return {
