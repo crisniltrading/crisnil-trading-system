@@ -1,17 +1,13 @@
 {
-  "name": "frontend",
+  "name": "crisnil-trading-frontend",
   "version": "1.0.0",
-  "description": "",
-  "main": "script.js",
+  "description": "CRISNIL Trading Corp - Frontend Static Site",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "build": "node build-js.js",
-    "build:watch": "nodemon --watch js --watch script.js --exec \"node build-js.js\""
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["frozen-food", "ecommerce", "inventory"],
+  "author": "CRISNIL Trading Corp",
+  "license": "MIT",
   "dependencies": {
     "express": "^5.1.0"
   }
