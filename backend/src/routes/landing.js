@@ -17,10 +17,20 @@ router.get('/featured-products', async (req, res) => {
 
         // Format products for landing page
         const formattedProducts = products.map(product => {
-            let imageUrl = product.images?.[0]?.url || null;
-            // Convert relative URLs to absolute URLs
-            if (imageUrl && !imageUrl.startsWith('http')) {
-                imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
+            // Handle both URL and base64 images
+            let imageUrl = null;
+            if (product.images && product.images.length > 0) {
+                const firstImage = product.images[0];
+                if (firstImage.url) {
+                    // URL-based image
+                    imageUrl = firstImage.url;
+                    if (!imageUrl.startsWith('http')) {
+                        imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
+                    }
+                } else if (firstImage.data && firstImage.contentType) {
+                    // Base64 image
+                    imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
+                }
             }
             
             return {
@@ -132,9 +142,18 @@ router.get('/promotions', async (req, res) => {
                     discountPercentage = Math.round((discountValue / originalPrice) * 100);
                 }
                 
-                let imageUrl = product.images?.[0]?.url || null;
-                if (imageUrl && !imageUrl.startsWith('http')) {
-                    imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
+                // Handle both URL and base64 images
+                let imageUrl = null;
+                if (product.images && product.images.length > 0) {
+                    const firstImage = product.images[0];
+                    if (firstImage.url) {
+                        imageUrl = firstImage.url;
+                        if (!imageUrl.startsWith('http')) {
+                            imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
+                        }
+                    } else if (firstImage.data && firstImage.contentType) {
+                        imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
+                    }
                 }
                 
                 const daysRemaining = Math.ceil((new Date(promo.validity.endDate) - now) / (1000 * 60 * 60 * 24));
@@ -180,9 +199,18 @@ router.get('/promotions', async (req, res) => {
                 const discountedPrice = originalPrice * (1 - discount);
                 const minQuantity = product.pricing?.bulkMinQuantity || 10;
                 
-                let imageUrl = product.images?.[0]?.url || null;
-                if (imageUrl && !imageUrl.startsWith('http')) {
-                    imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
+                // Handle both URL and base64 images
+                let imageUrl = null;
+                if (product.images && product.images.length > 0) {
+                    const firstImage = product.images[0];
+                    if (firstImage.url) {
+                        imageUrl = firstImage.url;
+                        if (!imageUrl.startsWith('http')) {
+                            imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
+                        }
+                    } else if (firstImage.data && firstImage.contentType) {
+                        imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
+                    }
                 }
 
                 formattedPromotions.push({
