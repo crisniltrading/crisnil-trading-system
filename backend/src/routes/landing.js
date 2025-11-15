@@ -27,8 +27,8 @@ router.get('/featured-products', async (req, res) => {
                     if (!imageUrl.startsWith('http')) {
                         imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
                     }
-                } else if (firstImage.data && firstImage.contentType) {
-                    // Base64 image
+                } else if (firstImage.data && firstImage.contentType && firstImage.data.length > 100) {
+                    // Base64 image - only use if data is substantial (not just "1" or empty)
                     imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
                 }
             }
@@ -151,7 +151,8 @@ router.get('/promotions', async (req, res) => {
                         if (!imageUrl.startsWith('http')) {
                             imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
                         }
-                    } else if (firstImage.data && firstImage.contentType) {
+                    } else if (firstImage.data && firstImage.contentType && firstImage.data.length > 100) {
+                        // Base64 image - only use if data is substantial
                         imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
                     }
                 }
@@ -208,7 +209,8 @@ router.get('/promotions', async (req, res) => {
                         if (!imageUrl.startsWith('http')) {
                             imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
                         }
-                    } else if (firstImage.data && firstImage.contentType) {
+                    } else if (firstImage.data && firstImage.contentType && firstImage.data.length > 100) {
+                        // Base64 image - only use if data is substantial
                         imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
                     }
                 }
