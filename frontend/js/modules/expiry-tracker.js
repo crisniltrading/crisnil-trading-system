@@ -137,9 +137,22 @@ function renderExpiryProducts(products, type) {
         const statusClass = daysToExpiry <= 7 ? 'critical' : daysToExpiry <= 30 ? 'warning' : 'expired';
         const statusText = daysToExpiry < 0 ? 'Expired' : `${daysToExpiry} days left`;
         
-        const imageUrl = product.images && product.images.length > 0 
-            ? `${API_BASE_URL.replace('/api', '')}${product.images[0].url}`
-            : null;
+        // Get image URL using ImageHelper for proper base64 handling
+        let imageUrl = null;
+        if (product.images && product.images.length > 0) {
+            imageUrl = window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : null;
+            
+            // Fallback if ImageHelper not available
+            if (!imageUrl) {
+                const img = product.images[0];
+                if (img.data && img.contentType) {
+                    const dataStr = String(img.data);
+                    imageUrl = dataStr.startsWith('data:') ? dataStr : `data:${img.contentType};base64,${dataStr}`;
+                } else if (img.url) {
+                    imageUrl = img.url.startsWith('http') ? img.url : `${API_BASE_URL.replace('/api', '')}${img.url}`;
+                }
+            }
+        }
 
         // FIFO information
         const hasFifoOrder = product.fifoOrder && product.fifoOrder.length > 0;
