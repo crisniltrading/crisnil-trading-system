@@ -21,12 +21,6 @@ router.get('/featured-products', async (req, res) => {
             let imageUrl = null;
             if (product.images && product.images.length > 0) {
                 const firstImage = product.images[0];
-                console.log(`Product ${product.name} image:`, {
-                    hasUrl: !!firstImage.url,
-                    hasData: !!firstImage.data,
-                    dataLength: firstImage.data?.length || 0,
-                    contentType: firstImage.contentType
-                });
                 
                 if (firstImage.url) {
                     // URL-based image
@@ -34,12 +28,16 @@ router.get('/featured-products', async (req, res) => {
                     if (!imageUrl.startsWith('http')) {
                         imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
                     }
-                } else if (firstImage.data && firstImage.contentType && firstImage.data.length > 100) {
-                    // Base64 image - only use if data is substantial (not just "1" or empty)
-                    imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
+                } else if (firstImage.data && firstImage.contentType) {
+                    // Base64 image - validate it's proper base64 data
+                    const dataStr = String(firstImage.data);
+                    // Check if it's valid base64 (should be long and contain base64 characters)
+                    if (dataStr.length > 1000 && /^[A-Za-z0-9+/=]+$/.test(dataStr.substring(0, 100))) {
+                        imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
+                    } else {
+                        console.log(`Product ${product.name} has invalid base64 data (length: ${dataStr.length})`);
+                    }
                 }
-            } else {
-                console.log(`Product ${product.name} has no images`);
             }
             
             return {
@@ -160,9 +158,11 @@ router.get('/promotions', async (req, res) => {
                         if (!imageUrl.startsWith('http')) {
                             imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
                         }
-                    } else if (firstImage.data && firstImage.contentType && firstImage.data.length > 100) {
-                        // Base64 image - only use if data is substantial
-                        imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
+                    } else if (firstImage.data && firstImage.contentType) {
+                        const dataStr = String(firstImage.data);
+                        if (dataStr.length > 1000 && /^[A-Za-z0-9+/=]+$/.test(dataStr.substring(0, 100))) {
+                            imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
+                        }
                     }
                 }
                 
@@ -218,9 +218,11 @@ router.get('/promotions', async (req, res) => {
                         if (!imageUrl.startsWith('http')) {
                             imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
                         }
-                    } else if (firstImage.data && firstImage.contentType && firstImage.data.length > 100) {
-                        // Base64 image - only use if data is substantial
-                        imageUrl = `data:${firstImage.contentType};base64,${firstImage.data}`;
+                    } else if (firstImage.data && firstImage.contentType) {
+                        const dataStr = String(firstImage.data);
+                        if (dataStr.length > 1000 && /^[A-Za-z0-9+/=]+$/.test(dataStr.substring(0, 100))) {
+                            imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
+                        }
                     }
                 }
 
