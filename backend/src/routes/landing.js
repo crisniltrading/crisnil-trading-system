@@ -17,18 +17,12 @@ router.get('/featured-products', async (req, res) => {
 
         // Format products for landing page
         const formattedProducts = products.map(product => {
-            // Handle both URL and base64 images
+            // Handle base64 images (stored in database)
             let imageUrl = null;
             if (product.images && product.images.length > 0) {
                 const firstImage = product.images[0];
                 
-                if (firstImage.url) {
-                    // URL-based image
-                    imageUrl = firstImage.url;
-                    if (!imageUrl.startsWith('http')) {
-                        imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
-                    }
-                } else if (firstImage.data && firstImage.contentType) {
+                if (firstImage.data && firstImage.contentType) {
                     // Base64 image - validate it's proper base64 data
                     const dataStr = String(firstImage.data);
                     // Check if it's valid base64 (should be long and contain base64 characters)
@@ -149,16 +143,11 @@ router.get('/promotions', async (req, res) => {
                     discountPercentage = Math.round((discountValue / originalPrice) * 100);
                 }
                 
-                // Handle both URL and base64 images
+                // Handle base64 images
                 let imageUrl = null;
                 if (product.images && product.images.length > 0) {
                     const firstImage = product.images[0];
-                    if (firstImage.url) {
-                        imageUrl = firstImage.url;
-                        if (!imageUrl.startsWith('http')) {
-                            imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
-                        }
-                    } else if (firstImage.data && firstImage.contentType) {
+                    if (firstImage.data && firstImage.contentType) {
                         const dataStr = String(firstImage.data);
                         if (dataStr.length > 1000 && /^[A-Za-z0-9+/=]+$/.test(dataStr.substring(0, 100))) {
                             imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
@@ -209,16 +198,11 @@ router.get('/promotions', async (req, res) => {
                 const discountedPrice = originalPrice * (1 - discount);
                 const minQuantity = product.pricing?.bulkMinQuantity || 10;
                 
-                // Handle both URL and base64 images
+                // Handle base64 images
                 let imageUrl = null;
                 if (product.images && product.images.length > 0) {
                     const firstImage = product.images[0];
-                    if (firstImage.url) {
-                        imageUrl = firstImage.url;
-                        if (!imageUrl.startsWith('http')) {
-                            imageUrl = `${req.protocol}://${req.get('host')}${imageUrl}`;
-                        }
-                    } else if (firstImage.data && firstImage.contentType) {
+                    if (firstImage.data && firstImage.contentType) {
                         const dataStr = String(firstImage.data);
                         if (dataStr.length > 1000 && /^[A-Za-z0-9+/=]+$/.test(dataStr.substring(0, 100))) {
                             imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
