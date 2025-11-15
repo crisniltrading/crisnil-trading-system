@@ -2415,6 +2415,15 @@
     width: 100%;
 }
 
+/* Ensure product card buttons are consistent */
+.product-preview-card .btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
 .promo-banner {
     background: linear-gradient(135deg, #C41E3A 0%, #8B1528 100%);
     padding: 2rem;
