@@ -66,7 +66,8 @@ function renderProductsGrid(products) {
             const displayPrice = hasDiscount ? product.discountedPrice : product.price;
             const stockBadge = getStockBadge(product);
             const imageUrl = product.images && product.images.length > 0 
-                ? `${API_BASE_URL.replace('/api', '')}${product.images[0].url}`
+                ? (window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : 
+                   (product.images[0].data ? `data:${product.images[0].contentType};base64,${product.images[0].data}` : null))
                 : null;
 
             return `
@@ -427,11 +428,20 @@ async function showEditProductModal(productId) {
         
         if (product.images && product.images.length > 0) {
             currentImagesSection.style.display = 'block';
-            imagesContainer.innerHTML = product.images.map(img => `
+            imagesContainer.innerHTML = product.images.map(img => {
+                const imgUrl = window.ImageHelper ? window.ImageHelper.getImageUrl(img) : 
+                               (img.data ? `data:${img.contentType};base64,${img.data}` : null);
+                return `
                 <div style="position: relative; display: inline-block;">
-                    <img src="${API_BASE_URL.replace('/api', '')}${img.url}" 
-                         alt="${img.alt || product.name}" 
-                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid var(--border-color);">
+                    ${imgUrl ? `
+                        <img src="${imgUrl}" 
+                             alt="${img.alt || product.name}" 
+                             style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid var(--border-color);">
+                    ` : `
+                        <div style="width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background: #f1f5f9; border-radius: 8px;">
+                            <i class="fas fa-image" style="font-size: 2rem; color: #cbd5e1;"></i>
+                        </div>
+                    `}
                     <button type="button" 
                             onclick="deleteProductImageFromEdit('${product._id}', '${img._id}')"
                             style="position: absolute; top: -8px; right: -8px; background: var(--danger-color); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px;"
@@ -439,7 +449,7 @@ async function showEditProductModal(productId) {
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-            `).join('');
+            `}).join('');
         } else {
             currentImagesSection.style.display = 'none';
         }
@@ -719,7 +729,8 @@ function showProductDetailsModal(product) {
     const hasDiscount = product.discountedPrice && product.discountedPrice < product.price;
     const displayPrice = hasDiscount ? product.discountedPrice : product.price;
     const imageUrl = product.images && product.images.length > 0 
-        ? `${API_BASE_URL.replace('/api', '')}${product.images[0].url}`
+        ? (window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : 
+           (product.images[0].data ? `data:${product.images[0].contentType};base64,${product.images[0].data}` : null))
         : null;
 
     const modalHTML = `
