@@ -6,7 +6,7 @@ let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 // API base URL - configured based on environment
 const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5001/api'
-    : (window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '') + '/api');
+    : 'https://crisnil-trading-systems.onrender.com/api';
 window.API_BASE_URL = API_BASE_URL; // Make it globally accessible
 console.log('🌐 API Base URL:', API_BASE_URL);
 
