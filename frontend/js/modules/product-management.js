@@ -65,10 +65,14 @@ function renderProductsGrid(products) {
             const hasDiscount = product.discountedPrice && product.discountedPrice < product.price;
             const displayPrice = hasDiscount ? product.discountedPrice : product.price;
             const stockBadge = getStockBadge(product);
-            const imageUrl = product.images && product.images.length > 0 
-                ? (window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : 
-                   (product.images[0].data ? `data:${product.images[0].contentType};base64,${product.images[0].data}` : null))
-                : null;
+            // Get image URL - handle base64 data from database
+            let imageUrl = null;
+            if (product.images && product.images.length > 0) {
+                const img = product.images[0];
+                if (img.data && img.contentType) {
+                    imageUrl = `data:${img.contentType};base64,${img.data}`;
+                }
+            }
 
             return `
                 <div class="product-card interactive" data-product-id="${product._id}">
@@ -429,8 +433,11 @@ async function showEditProductModal(productId) {
         if (product.images && product.images.length > 0) {
             currentImagesSection.style.display = 'block';
             imagesContainer.innerHTML = product.images.map(img => {
-                const imgUrl = window.ImageHelper ? window.ImageHelper.getImageUrl(img) : 
-                               (img.data ? `data:${img.contentType};base64,${img.data}` : null);
+                // Get image URL - handle base64 data
+                let imgUrl = null;
+                if (img.data && img.contentType) {
+                    imgUrl = `data:${img.contentType};base64,${img.data}`;
+                }
                 return `
                 <div style="position: relative; display: inline-block;">
                     ${imgUrl ? `
@@ -728,10 +735,14 @@ async function viewProductDetails(productId) {
 function showProductDetailsModal(product) {
     const hasDiscount = product.discountedPrice && product.discountedPrice < product.price;
     const displayPrice = hasDiscount ? product.discountedPrice : product.price;
-    const imageUrl = product.images && product.images.length > 0 
-        ? (window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : 
-           (product.images[0].data ? `data:${product.images[0].contentType};base64,${product.images[0].data}` : null))
-        : null;
+    // Get image URL - handle base64 data from database
+    let imageUrl = null;
+    if (product.images && product.images.length > 0) {
+        const img = product.images[0];
+        if (img.data && img.contentType) {
+            imageUrl = `data:${img.contentType};base64,${img.data}`;
+        }
+    }
 
     const modalHTML = `
         <div id="productDetailsModal" class="modal" style="display: flex;">
