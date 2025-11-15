@@ -23,13 +23,14 @@ router.get('/featured-products', async (req, res) => {
                 const firstImage = product.images[0];
                 
                 if (firstImage.data && firstImage.contentType) {
-                    // Base64 image - validate it's proper base64 data
                     const dataStr = String(firstImage.data);
-                    // Check if it's valid base64 (should be long and contain base64 characters)
-                    if (dataStr.length > 1000 && /^[A-Za-z0-9+/=]+$/.test(dataStr.substring(0, 100))) {
-                        imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
+                    
+                    // Check if data already includes the data URL prefix (old format)
+                    if (dataStr.startsWith('data:')) {
+                        imageUrl = dataStr;
                     } else {
-                        console.log(`Product ${product.name} has invalid base64 data (length: ${dataStr.length})`);
+                        // New format: just base64 string
+                        imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
                     }
                 }
             }
@@ -149,7 +150,12 @@ router.get('/promotions', async (req, res) => {
                     const firstImage = product.images[0];
                     if (firstImage.data && firstImage.contentType) {
                         const dataStr = String(firstImage.data);
-                        if (dataStr.length > 1000 && /^[A-Za-z0-9+/=]+$/.test(dataStr.substring(0, 100))) {
+                        
+                        // Check if data already includes the data URL prefix (old format)
+                        if (dataStr.startsWith('data:')) {
+                            imageUrl = dataStr;
+                        } else {
+                            // New format: just base64 string
                             imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
                         }
                     }
@@ -204,7 +210,12 @@ router.get('/promotions', async (req, res) => {
                     const firstImage = product.images[0];
                     if (firstImage.data && firstImage.contentType) {
                         const dataStr = String(firstImage.data);
-                        if (dataStr.length > 1000 && /^[A-Za-z0-9+/=]+$/.test(dataStr.substring(0, 100))) {
+                        
+                        // Check if data already includes the data URL prefix (old format)
+                        if (dataStr.startsWith('data:')) {
+                            imageUrl = dataStr;
+                        } else {
+                            // New format: just base64 string
                             imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
                         }
                     }

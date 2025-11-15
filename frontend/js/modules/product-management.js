@@ -68,9 +68,15 @@ function renderProductsGrid(products) {
             // Get image URL - handle base64 data from database
             let imageUrl = null;
             if (product.images && product.images.length > 0) {
-                const img = product.images[0];
-                if (img.data && img.contentType) {
-                    imageUrl = `data:${img.contentType};base64,${img.data}`;
+                imageUrl = window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : null;
+                
+                // Fallback if ImageHelper not available
+                if (!imageUrl) {
+                    const img = product.images[0];
+                    if (img.data && img.contentType) {
+                        const dataStr = String(img.data);
+                        imageUrl = dataStr.startsWith('data:') ? dataStr : `data:${img.contentType};base64,${dataStr}`;
+                    }
                 }
             }
 
@@ -436,7 +442,8 @@ async function showEditProductModal(productId) {
                 // Get image URL - handle base64 data
                 let imgUrl = null;
                 if (img.data && img.contentType) {
-                    imgUrl = `data:${img.contentType};base64,${img.data}`;
+                    const dataStr = String(img.data);
+                    imgUrl = dataStr.startsWith('data:') ? dataStr : `data:${img.contentType};base64,${dataStr}`;
                 }
                 return `
                 <div style="position: relative; display: inline-block;">
@@ -738,9 +745,15 @@ function showProductDetailsModal(product) {
     // Get image URL - handle base64 data from database
     let imageUrl = null;
     if (product.images && product.images.length > 0) {
-        const img = product.images[0];
-        if (img.data && img.contentType) {
-            imageUrl = `data:${img.contentType};base64,${img.data}`;
+        imageUrl = window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : null;
+        
+        // Fallback if ImageHelper not available
+        if (!imageUrl) {
+            const img = product.images[0];
+            if (img.data && img.contentType) {
+                const dataStr = String(img.data);
+                imageUrl = dataStr.startsWith('data:') ? dataStr : `data:${img.contentType};base64,${dataStr}`;
+            }
         }
     }
 

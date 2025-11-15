@@ -107,7 +107,14 @@ function renderInventoryDashboard(overview, products, alerts) {
                         <div class="low-stock-card">
                             <div class="product-image-small">
                                 ${product.images && product.images.length > 0 ? `
-                                    <img src="${window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : (product.images[0].data ? `data:${product.images[0].contentType};base64,${product.images[0].data}` : '')}" alt="${product.name}">
+                                    <img src="${window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : (() => {
+                                        const img = product.images[0];
+                                        if (img.data && img.contentType) {
+                                            const dataStr = String(img.data);
+                                            return dataStr.startsWith('data:') ? dataStr : \`data:\${img.contentType};base64,\${dataStr}\`;
+                                        }
+                                        return '';
+                                    })()}" alt="${product.name}">
                                 ` : `
                                     <i class="fas fa-box"></i>
                                 `}
@@ -190,7 +197,14 @@ function renderInventoryRow(product) {
             <td>
                 <div class="product-cell">
                     ${product.images && product.images.length > 0 ? `
-                        <img src="${window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : (product.images[0].data ? `data:${product.images[0].contentType};base64,${product.images[0].data}` : '')}" alt="${product.name}" class="product-thumb">
+                        <img src="${window.ImageHelper ? window.ImageHelper.getImageUrl(product.images[0]) : (() => {
+                            const img = product.images[0];
+                            if (img.data && img.contentType) {
+                                const dataStr = String(img.data);
+                                return dataStr.startsWith('data:') ? dataStr : \`data:\${img.contentType};base64,\${dataStr}\`;
+                            }
+                            return '';
+                        })()}" alt="${product.name}" class="product-thumb">
                     ` : `
                         <div class="product-thumb-placeholder"><i class="fas fa-box"></i></div>
                     `}

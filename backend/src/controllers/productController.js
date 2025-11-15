@@ -515,15 +515,15 @@ const uploadProductImage = async (req, res) => {
 
     // Convert image buffer to base64
     const base64Image = req.file.buffer.toString('base64');
-    const imageData = `data:${req.file.mimetype};base64,${base64Image}`;
     
     // Initialize images array if it doesn't exist
     if (!product.images) {
       product.images = [];
     }
     
+    // Store only the base64 string (without data URL prefix)
     product.images.push({
-      data: imageData,
+      data: base64Image,
       contentType: req.file.mimetype,
       filename: req.file.originalname,
       alt: req.body.alt || product.name

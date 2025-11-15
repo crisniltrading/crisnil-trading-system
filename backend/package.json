@@ -14,7 +14,9 @@
     "create-admin": "node src/scripts/createAdminStaff.js",
     "seed:admin": "node src/seeders/adminSeeder.js",
     "seed:clean": "node src/seeders/cleanDataSeeder.js",
-    "migrate:images": "node src/scripts/migrateImagesToDatabase.js"
+    "migrate:images": "node src/scripts/migrateImagesToDatabase.js",
+    "migrate:fix-images": "node src/scripts/fixImageDataFormat.js",
+    "test:images": "node src/scripts/testImageDisplay.js"
   },
   "keywords": [
     "ecommerce",

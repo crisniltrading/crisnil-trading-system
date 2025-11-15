@@ -536,7 +536,18 @@ class AdPopup {
             }
             // Handle object with url property (your Product model format)
             else if (firstImage && typeof firstImage === 'object') {
-                if (firstImage.url) {
+                // Handle base64 format (stored in database)
+                if (firstImage.data && firstImage.contentType) {
+                    const dataStr = String(firstImage.data);
+                    // Check if data already includes the data URL prefix (old format)
+                    if (dataStr.startsWith('data:')) {
+                        imageUrl = dataStr;
+                    } else {
+                        // New format: just base64 string
+                        imageUrl = `data:${firstImage.contentType};base64,${dataStr}`;
+                    }
+                    console.log('Image has base64 data:', imageUrl.substring(0, 50) + '...');
+                } else if (firstImage.url) {
                     // Check if URL is full or relative
                     if (firstImage.url.startsWith('http')) {
                         imageUrl = firstImage.url;

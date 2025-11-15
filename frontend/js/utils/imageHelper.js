@@ -23,7 +23,15 @@
     if (typeof imageInput === 'object') {
       // Base64 format (stored in database)
       if (imageInput.data && imageInput.contentType) {
-        return `data:${imageInput.contentType};base64,${imageInput.data}`;
+        const dataStr = String(imageInput.data);
+        
+        // Check if data already includes the data URL prefix (old format)
+        if (dataStr.startsWith('data:')) {
+          return dataStr;
+        }
+        
+        // New format: just base64 string
+        return `data:${imageInput.contentType};base64,${dataStr}`;
       }
       // URL format (if it exists)
       if (imageInput.url) {
