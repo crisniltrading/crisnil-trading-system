@@ -7065,7 +7065,7 @@ async function handleAddProduct(e) {
 
             hideLoading();
             showToast('Product created successfully!', 'success');
-            closeAddProductModal();
+            closeAddProductModal(true); // Pass true to reset the form after successful submission
             loadProducts(); // Refresh products list
             if (typeof loadInventory === 'function') {
                 loadInventory(); // Refresh inventory data
@@ -9578,15 +9578,22 @@ function showAddProductModal() {
     };
 }
 
-function closeAddProductModal() {
+function closeAddProductModal(shouldResetForm = false) {
     const modal = document.getElementById('addProductModal');
     const form = document.getElementById('addProductForm');
 
     if (modal) {
         modal.style.display = 'none';
     }
-    if (form) {
+    // Only reset form if explicitly requested (e.g., after successful submission or cancel button)
+    if (form && shouldResetForm) {
         form.reset();
+        // Clear image preview if exists
+        const imagePreview = document.getElementById('productImagePreview');
+        if (imagePreview) {
+            imagePreview.style.display = 'none';
+            imagePreview.innerHTML = '';
+        }
     }
 }
 
