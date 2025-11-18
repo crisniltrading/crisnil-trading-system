@@ -111,7 +111,7 @@ function renderInventoryDashboard(overview, products, alerts) {
                                         const img = product.images[0];
                                         if (img.data && img.contentType) {
                                             const dataStr = String(img.data);
-                                            return dataStr.startsWith('data:') ? dataStr : \`data:\${img.contentType};base64,\${dataStr}\`;
+                                            return dataStr.startsWith('data:') ? dataStr : 'data:' + img.contentType + ';base64,' + dataStr;
                                         }
                                         return '';
                                     })()}" alt="${product.name}">
@@ -201,7 +201,7 @@ function renderInventoryRow(product) {
                             const img = product.images[0];
                             if (img.data && img.contentType) {
                                 const dataStr = String(img.data);
-                                return dataStr.startsWith('data:') ? dataStr : \`data:\${img.contentType};base64,\${dataStr}\`;
+                                return dataStr.startsWith('data:') ? dataStr : 'data:' + img.contentType + ';base64,' + dataStr;
                             }
                             return '';
                         })()}" alt="${product.name}" class="product-thumb">
