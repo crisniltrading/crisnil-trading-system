@@ -9589,10 +9589,9 @@ function closeAddProductModal(shouldResetForm = false) {
     if (form && shouldResetForm) {
         form.reset();
         // Clear image preview if exists
-        const imagePreview = document.getElementById('productImagePreview');
+        const imagePreview = document.getElementById('addProductImagePreviewFirst');
         if (imagePreview) {
             imagePreview.style.display = 'none';
-            imagePreview.innerHTML = '';
         }
     }
 }
