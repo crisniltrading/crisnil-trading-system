@@ -42,7 +42,9 @@ const getExpiringProducts = async (req, res) => {
 // Manually trigger expiry discount application
 const applyExpiryDiscounts = async (req, res) => {
   try {
-    const result = await expiryService.applyExpiryDiscounts();
+    // Pass the current user ID to the service
+    const userId = req.user?._id || req.user?.id;
+    const result = await expiryService.applyExpiryDiscounts(userId);
     
     res.status(200).json({
       status: 'success',

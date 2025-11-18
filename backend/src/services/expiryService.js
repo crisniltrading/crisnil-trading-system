@@ -66,7 +66,7 @@ class ExpiryService {
   }
 
   // Automatically apply discount to near-expiry products
-  async applyExpiryDiscounts() {
+  async applyExpiryDiscounts(userId) {
     try {
       console.log('💰 Applying expiry discounts...');
       
@@ -77,8 +77,8 @@ class ExpiryService {
         // Check if there's already an expiry promotion for this product
         const existingPromo = await Promotion.findOne({
           name: { $regex: `Expiry Sale - ${product.name}`, $options: 'i' },
-          isActive: true,
-          endDate: { $gte: new Date() }
+          status: 'active',
+          'validity.endDate': { $gte: new Date() }
         });
 
         if (existingPromo) {
@@ -102,18 +102,21 @@ class ExpiryService {
           const promotion = await Promotion.create({
             name: `Expiry Sale - ${product.name}`,
             description: `Wholesale discount - Product expiring in ${daysToExpiry} days`,
-            type: 'expiry_discount',
+            category: 'expiry',
             discount: {
               type: 'percentage',
               value: discountPercentage
             },
-            startDate: new Date(),
-            endDate,
-            conditions: {
-              applicableProducts: [product._id]
+            validity: {
+              startDate: new Date(),
+              endDate
             },
-            isActive: true,
-            createdBy: product.createdBy || product.updatedBy || new mongoose.Types.ObjectId()
+            rules: {
+              products: [product._id]
+            },
+            status: 'active',
+            autoApply: true,
+            createdBy: userId || product.createdBy || product.updatedBy
           });
 
           console.log(`✅ Applied ${discountPercentage}% discount to ${product.name} (expires in ${daysToExpiry} days)`);
