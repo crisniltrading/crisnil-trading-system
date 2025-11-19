@@ -70,7 +70,7 @@ const productSchema = new mongoose.Schema({
   batchInfo: [{
     batchNumber: {
       type: String,
-      required: true,
+      required: false, // Auto-generated in controller before save
       unique: true,
       index: true
     },
