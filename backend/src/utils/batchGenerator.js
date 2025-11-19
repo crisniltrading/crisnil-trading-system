@@ -6,25 +6,29 @@ const Product = require('../models/Product');
  */
 async function generateUniqueBatchNumber() {
   const date = new Date().toISOString().split('T')[0].replace(/-/g, '');
-  let counter = 1;
-  let batchNumber;
-  let isUnique = false;
-
-  while (!isUnique) {
-    batchNumber = `BATCH-${date}-${String(counter).padStart(5, '0')}`;
-    
-    // Check if this batch number exists in any product
-    const existingBatch = await Product.findOne({
-      'batchInfo.batchNumber': batchNumber
-    });
-    
-    if (!existingBatch) {
-      isUnique = true;
-    } else {
-      counter++;
+  
+  // Find the highest batch number for today
+  const todayPattern = new RegExp(`^BATCH-${date}-`);
+  const products = await Product.find({
+    'batchInfo.batchNumber': todayPattern
+  }).select('batchInfo.batchNumber');
+  
+  let maxCounter = 0;
+  products.forEach(product => {
+    if (product.batchInfo) {
+      product.batchInfo.forEach(batch => {
+        if (batch.batchNumber && batch.batchNumber.startsWith(`BATCH-${date}-`)) {
+          const parts = batch.batchNumber.split('-');
+          const num = parseInt(parts[2]);
+          if (num > maxCounter) {
+            maxCounter = num;
+          }
+        }
+      });
     }
-  }
-
+  });
+  
+  const batchNumber = `BATCH-${date}-${String(maxCounter + 1).padStart(5, '0')}`;
   return batchNumber;
 }
 

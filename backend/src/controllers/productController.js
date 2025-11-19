@@ -165,6 +165,9 @@ const getProduct = async (req, res) => {
 // Create new product
 const createProduct = async (req, res) => {
   try {
+    console.log('📦 Creating product...');
+    console.log('Request body:', JSON.stringify(req.body, null, 2));
+    
     const { generateUniqueBatchNumber } = require('../utils/batchGenerator');
     
     const productData = {
@@ -172,17 +175,27 @@ const createProduct = async (req, res) => {
       createdBy: req.user._id
     };
 
+    console.log('Product data before batch generation:', JSON.stringify(productData, null, 2));
+
     // Auto-generate batch number if batch info is provided but no batch number
     if (productData.batchInfo && productData.batchInfo.length > 0) {
+      console.log('📋 Found batch info, generating batch numbers...');
       for (let batch of productData.batchInfo) {
         if (!batch.batchNumber) {
           batch.batchNumber = await generateUniqueBatchNumber();
           console.log('✅ Auto-generated batch number:', batch.batchNumber);
+        } else {
+          console.log('ℹ️  Batch already has number:', batch.batchNumber);
         }
       }
+    } else {
+      console.log('ℹ️  No batch info provided');
     }
 
+    console.log('Product data after batch generation:', JSON.stringify(productData, null, 2));
+
     const product = await Product.create(productData);
+    console.log('✅ Product created successfully:', product._id);
 
     res.status(201).json({
       status: 'success',
