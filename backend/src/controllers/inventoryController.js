@@ -215,25 +215,8 @@ const adjustStock = async (req, res) => {
     // Generate batch number for restock (FIFO tracking)
     let batchNumber = null;
     if (adjustmentType === 'add' && reason === 'restock') {
-      // Generate batch number: BATCH-YYYYMMDD-XXX
-      const today = new Date().toISOString().split('T')[0].replace(/-/g, '');
-      
-      // Count all batches created today across all products
-      const allProducts = await Product.find({
-        'batchInfo.batchNumber': new RegExp(`^BATCH-${today}`)
-      });
-      
-      let maxCount = 0;
-      allProducts.forEach(p => {
-        p.batchInfo.forEach(b => {
-          if (b.batchNumber && b.batchNumber.startsWith(`BATCH-${today}`)) {
-            const num = parseInt(b.batchNumber.split('-')[2]);
-            if (num > maxCount) maxCount = num;
-          }
-        });
-      });
-      
-      batchNumber = `BATCH-${today}-${String(maxCount + 1).padStart(3, '0')}`;
+      const { generateUniqueBatchNumber } = require('../utils/batchGenerator');
+      batchNumber = await generateUniqueBatchNumber();
       
       // Add batch info to product
       if (!product.batchInfo) product.batchInfo = [];

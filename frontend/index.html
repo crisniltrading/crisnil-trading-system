@@ -3013,7 +3013,10 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">Batch Number</label>
-                            <input type="text" name="batchNumber" class="form-input" placeholder="e.g., BATCH-001">
+                            <input type="text" name="batchNumber" class="form-input" placeholder="Auto-generated" readonly style="background-color: var(--bg-secondary); cursor: not-allowed;">
+                            <small style="color: var(--text-muted); display: block; margin-top: 0.25rem;">
+                                <i class="fas fa-info-circle"></i> Automatically generated when product is created
+                            </small>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Received Date</label>
@@ -3184,9 +3187,9 @@
 
                 <div class="form-group">
                     <label class="form-label">Batch Number</label>
-                    <input type="text" name="batchNumber" class="form-input" required placeholder="e.g., BATCH-001">
-                    <small style="color: var(--text-muted); display: block; margin-top: 0.25rem;">
-                        Unique identifier for this batch
+                    <input type="text" name="batchNumber" class="form-input" placeholder="Auto-generated" readonly style="background-color: var(--bg-secondary); cursor: not-allowed;">
+                    <small style="color: var(--success); display: block; margin-top: 0.25rem;">
+                        <i class="fas fa-check-circle"></i> Automatically generated when you restock
                     </small>
                 </div>
 

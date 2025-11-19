@@ -7001,17 +7001,17 @@ async function handleAddProduct(e) {
     };
 
     // Add batch information if provided (for expiry tracking)
-    const batchNumber = formData.get('batchNumber');
+    // Note: batchNumber is auto-generated on backend, no need to send it
     const expiryDate = formData.get('expiryDate');
     const receivedDate = formData.get('receivedDate');
 
-    if (batchNumber && expiryDate) {
+    if (expiryDate) {
         const batchQuantity = parseInt(formData.get('stock'));
         productData.batchInfo = [{
-            batchNumber: batchNumber,
+            // batchNumber will be auto-generated on backend
             expiryDate: new Date(expiryDate),
             quantity: batchQuantity,
-            remainingQuantity: batchQuantity, // Set remaining quantity same as initial quantity
+            remainingQuantity: batchQuantity,
             receivedDate: receivedDate ? new Date(receivedDate) : new Date()
         }];
     }

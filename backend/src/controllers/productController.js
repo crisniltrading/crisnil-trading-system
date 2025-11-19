@@ -165,10 +165,22 @@ const getProduct = async (req, res) => {
 // Create new product
 const createProduct = async (req, res) => {
   try {
+    const { generateUniqueBatchNumber } = require('../utils/batchGenerator');
+    
     const productData = {
       ...req.body,
       createdBy: req.user._id
     };
+
+    // Auto-generate batch number if batch info is provided but no batch number
+    if (productData.batchInfo && productData.batchInfo.length > 0) {
+      for (let batch of productData.batchInfo) {
+        if (!batch.batchNumber) {
+          batch.batchNumber = await generateUniqueBatchNumber();
+          console.log('✅ Auto-generated batch number:', batch.batchNumber);
+        }
+      }
+    }
 
     const product = await Product.create(productData);
 
